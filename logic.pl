@@ -1,8 +1,9 @@
 start :-
     write('Bem-vindo ao mistério da Mansão Ravenwood!'), nl,
-    write('Na noite do assassinato, um baile extravagante estava em pleno andamento na suntuosa mansão.'), nl,
+    write('Na noite do assassinato do senhor Alfred, um baile extravagante estava em pleno andamento na suntuosa mansão.'), nl,
     write('Entre os eventos da noite, os convidados desfrutavam de um cardápio refinado com iguarias como filé mignon, camarões grelhados e sobremesas luxuosas.'), nl,
-    write('O mordomo, conhecido por sua atenção aos detalhes, supervisionava pessoalmente o serviço de bebidas.'), nl,
+    write('O mordomo, conhecido por sua atenção aos detalhes, supervisionava pessoalmente o serviço de bebidas e os talheres de prata.'), nl,
+    write('A esposa do senhor Alfred encantava a todos com sua simpatia e seu vestido luxoso.'), nl,
     write('A senhora da casa, uma entusiasta de música clássica, encantava os convidados tocando piano na sala principal.'), nl,
     write('O professor da filha do Sr. Black, um aficionado por astronomia, foi visto observando as estrelas no jardim.'), nl,
     write('O coveiro local, que adora jardinagem, estava examinando as flores do jardim de inverno.'), nl,
@@ -12,8 +13,8 @@ start :-
     write('Várias testemunhas relataram que o culpado estava usando uma camisa vermelha na noite do crime.'), nl,
     write('Digite "suspeito_no_local(X, Local)." para saber se um suspeito esteve em um local específico.'), nl,
     write('Digite "suspeitos_no_local(Local)." para saber quem estava no local do crime.'), nl,
-    write('Digite "culpado(X)." para verificar quem é o culpado.'), nl.
-	write('Digite "cor_da_camisa_do_suspeito(Suspeito, Cor)." para descobrir a cor da camisa de um suspeito.'), nl.
+    write('Digite "culpado(X)." para verificar quem é o culpado.'), nl,
+    write('Digite "cor_da_camisa_do_suspeito(Suspeito, Cor)." para descobrir a cor da camisa de um suspeito.'), nl.
 
 
 % Suspeitos
@@ -25,6 +26,9 @@ suspeito(filha_professor).
 suspeito(guarda_florestal).
 suspeito(cozinheiro).
 suspeito(advogado).
+suspeito(garcom).
+suspeito(motorista).
+suspeito(esposa_assassinado).
 
 % Armas
 arma(faca).
@@ -63,6 +67,10 @@ cor_da_camisa(filha_professor, branca).
 cor_da_camisa(guarda_florestal, preto).
 cor_da_camisa(cozinheiro, vermelha).
 cor_da_camisa(advogado, azul).
+cor_da_camisa(garcom, preto).
+cor_da_camisa(motorista, vermelha).
+cor_da_camisa(esposa_assassino, vermelha).
+
 
 /* Defina regras sobre onde cada suspeito estava */
 onde_estava(mordomo, sala_principal).
