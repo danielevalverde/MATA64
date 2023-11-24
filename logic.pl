@@ -5,7 +5,7 @@ start :-
     write('O mordomo, conhecido por sua atenção aos detalhes, supervisionava pessoalmente o serviço de bebidas e os talheres de prata.'), nl,
     write('A esposa do senhor Alfred encantava a todos com sua simpatia e seu vestido luxoso.'), nl,
     write('A senhora da casa, uma entusiasta de música clássica, encantava os convidados tocando piano na sala principal.'), nl,
-    write('O professor da filha do Sr. Black, um aficionado por astronomia, foi visto observando as estrelas no jardim.'), nl,
+    write('O professor da filha do Sr. Alfred, um aficionado por astronomia, foi visto observando as estrelas no jardim.'), nl,
     write('O coveiro local, que adora jardinagem, estava examinando as flores do jardim de inverno.'), nl,
     write('A governanta, responsável pela organização do evento, circulava entre os convidados, atendendo às suas necessidades.'), nl,
     write('O jardineiro, frequentemente visto cuidando do jardim, estava especialmente ocupado com a manutenção das plantas durante o baile.'), nl,
