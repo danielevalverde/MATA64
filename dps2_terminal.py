@@ -5,7 +5,7 @@ import time
 largura = 600
 altura = 600
 
-manter_conhecimento = False
+manter_conhecimento = True
 
 cor_cinza = (128, 128, 128)
 cor_branca = (255, 255, 255)
@@ -44,9 +44,11 @@ def esconder_gato(labirinto):
     coordenadas_caminho = []
     for i in range(len(labirinto)):
         for j in range(len(labirinto[0])):
-            if labirinto[i][j] == 0:
+            if labirinto[i][j] == 1:
                 coordenadas_caminho.append((i, j))
 
+    coordenadas_caminho.pop()
+    
     coordenada_gato = random.choice(coordenadas_caminho)
     labirinto[coordenada_gato[0]][coordenada_gato[1]] = 2
     return labirinto
