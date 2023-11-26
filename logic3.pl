@@ -33,6 +33,9 @@ esteve_na_casa(sra_scarlett).
 esteve_na_casa(sra_white).
 
 
+% interesse na obra
+
+interesse_na_obra(sra_scarlett).
 % Chave
 possui_chave(sr_Richard).
 possui_chave(sr_brown).
@@ -64,3 +67,7 @@ interrogar_suspeito(sr_brown) :-
     nl.
 
 
+culpado(Suspeito) :-
+    possui_chave(Suspeito),
+    esteve_na_casa(Suspeito),
+    interesse_na_obra(Suspeito).
