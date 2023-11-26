@@ -7,14 +7,15 @@ start :-
     write('A Sra. Scarlett foi vista saindo da biblioteca pouco antes do assassinato.'), nl,
     write('Sr. Green estava presente na biblioteca durante a noite do assassinato e notou que uma das obras favoritas do Sr. Richard não estava na biblioteca,'), nl,
     write('Sra. Peacock foi ouvida discutindo com o Sr. Richard na noite do assassinato,'), nl,
-    write('Sr. Brown, jardineiro e marido da  Sra. Scarlett disse que estava na cidade comprando fertilizante a maior parte do dia,'), nl,
+    write('Sr. Brown, jardineiro disse que estava na cidade comprando fertilizante a maior parte do dia,'), nl,
     write('e a Sra. Scarlett também tinha interesse especial pela coleção do Sr. Richard.'), nl,
     write('e a Srta. Blue tinha uma reunião marcada com o Sr.Richard naquela noite.'), nl,
+    write('O Sr. Mustard, um colecionador rival, havia ameaçado o Sr. Richard para tentar adquirir suas obras.'), nl,
     write('Havia uma atmosfera de tensão na biblioteca, mas apenas um indivíduo parecia estar perdido em pensamentos.'), nl,
     write('Lista de Perguntas que o jogador pode fazer:'), nl,
     write('Digite "estava_na_casa(X)." para descobrir quem estava na casa.'), nl,
     write('Digite "relacao_com_assassinado(X)." para descobrir a relação do suspeito com o assassinado.'), nl,
-    write('Digite "relacao_entre_os_suspeitos(X, Y)." para descobrir a relação entre os suspeitos.'), nl,
+    write('Digite "relacao_entre_os_suspeitos(X, Y,R)." para descobrir a relação entre os suspeitos.'), nl,
     write('Digite "fatos_conhecidos_pela_policia." para descobrir os fatos conhecidos pela polícia.'), nl,
     write('Digite "culpado(X)." para descobrir quem é o culpado pelo assassinato.'), nl.
 
@@ -48,7 +49,7 @@ relacao_com_o_assassinado(dr_plum,medico).
 
 % Relações entre os suspeitos
 relacao_entre_suspeitos(sr_brown, sra_scarlett, esposo).
-relacao_entre_suspeitos(sra_scarlett, sra_brow, esposa).
+relacao_entre_suspeitos(sra_scarlett, sr_brown, esposa).
 
 % Fatos conhecidos pela polícia
 imprimir_fatos_conhecidos_policia :-
