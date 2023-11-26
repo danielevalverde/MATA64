@@ -1,11 +1,26 @@
 import pygame
 import time
 
+labirinto = [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 1, 0, 1, 0, 0, 1],
+    [1, 1, 1, 0, 1, 0, 1, 1, 0, 1],
+    [1, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+    [1, 1, 1, 0, 1, 1, 1, 1, 0, 1],
+    [1, 0, 2, 0, 0, 0, 1, 0, 0, 1],
+    [1, 0, 0, 0, 1, 0, 1, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+]
+    
 largura = 600
 altura = 600
-tamanho_celula = largura // 5
+tamanho_celula = largura // len(labirinto[0])
 linhas = altura // tamanho_celula
 colunas = largura // tamanho_celula
+
+manter_conhecimento = True
 
 pygame.init()
 
@@ -36,15 +51,16 @@ def desenhar_labirinto(labirinto):
 
 def dfs(labirinto, linha, coluna):
 
-    l = [row[:] for row in labirinto]
+    if not manter_conhecimento:
+        labirinto = [row[:] for row in labirinto]
         
-    if linha < 0 or coluna < 0 or linha >= len(l) or coluna >= len(l[0]) or l[linha][coluna] <= 0:
+    if linha < 0 or coluna < 0 or linha >= len(labirinto) or coluna >= len(labirinto[0]) or labirinto[linha][coluna] <= 0:
         return False
 
-    encontrado = l[linha][coluna] == 2
+    encontrado = labirinto[linha][coluna] == 2
 
-    l[linha][coluna] = -1
-    desenhar_labirinto(l)
+    labirinto[linha][coluna] = -1
+    desenhar_labirinto(labirinto)
 
     if encontrado:
         print('Gato encontrado!')
@@ -54,20 +70,11 @@ def dfs(labirinto, linha, coluna):
     pygame.display.update()
     pygame.time.delay(400)  # Adiciona um pequeno atraso para visualizar a busca
 
-    print(l)
+    print(labirinto)
 
-    return dfs(l, linha + 1, coluna) or dfs(l, linha - 1, coluna) or dfs(l, linha, coluna + 1) or dfs(l, linha, coluna - 1)
+    return dfs(labirinto, linha + 1, coluna) or dfs(labirinto, linha - 1, coluna) or dfs(labirinto, linha, coluna + 1) or dfs(labirinto, linha, coluna - 1)
 
 def main():
-
-    labirinto = [
-        [1, 1, 1, 1, 1],
-        [1, 0, 1, 0, 1],
-        [1, 1, 0, 2, 1],
-        [1, 0, 1, 0, 1],
-        [1, 1, 1, 1, 1]
-    ]
-
     rodando = True
     desenhar_labirinto(labirinto)
     time.sleep(1)
