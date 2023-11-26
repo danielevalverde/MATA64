@@ -112,7 +112,7 @@ interrogar_suspeito(sra_blue) :-
     nl.
 
 interrogar_suspeito(sra_white) :-
-    write('Não foi descoberto informações relevantes com a sra White.'),
+    write('Foi descoberto que o dr Plum foi visto manuseando objetos cortantes pouco antes do incidente.'),
     nl.
 
 interrogar_suspeito(sra_scarlett) :-
