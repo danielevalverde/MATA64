@@ -50,7 +50,7 @@ def esconder_gato(labirinto):
             if labirinto[i][j] == 1:
                 coordenadas_caminho.append((i, j))
 
-    coordenadas_caminho.pop()
+    del coordenadas_caminho[0]
     
     coordenada_gato = random.choice(coordenadas_caminho)
     labirinto[coordenada_gato[0]][coordenada_gato[1]] = 2
@@ -77,7 +77,7 @@ def desenhar_labirinto(labirinto):
                     cor = cor_cinza
                 pygame.draw.rect(janela, cor, (coluna * tamanho_celula, linha * tamanho_celula, tamanho_celula, tamanho_celula))
     pygame.display.update()
-    pygame.time.delay(10)  # Adiciona um pequeno atraso para visualizar a busca
+    pygame.time.delay(1)  # Adiciona um pequeno atraso para visualizar a busca
 
 
 def dfs(labirinto, linha, coluna):
@@ -138,26 +138,51 @@ def bfs(labirinto, linha, coluna):
 
     return False  # Gato não encontrado
 
+
+def comparar_buscas(labirinto):
+    coordenadas_caminho = []
+    for i in range(len(labirinto)):
+        for j in range(len(labirinto[0])):
+            if labirinto[i][j] == 1:
+                coordenadas_caminho.append((i, j))
+
+    del coordenadas_caminho[0]
+        
+    global qtd_visitados
+    
+    qtd_bfs = 0
+    qtd_dfs = 0
+    
+    for i in range(len(coordenadas_caminho)):
+        labirinto[coordenadas_caminho[i][0]][coordenadas_caminho[i][1]] = 2
+        
+        qtd_visitados = 0
+        labirinto_bfs = [row[:] for row in labirinto]
+        encontrou = bfs(labirinto_bfs, 0, 0)
+        qtd_bfs += qtd_visitados
+        
+        qtd_visitados = 0
+        labirinto_dfs = [row[:] for row in labirinto]
+        encontrou = dfs(labirinto_dfs, 0, 0)
+        qtd_dfs += qtd_visitados        
+        labirinto[coordenadas_caminho[i][0]][coordenadas_caminho[i][1]] = 1
+        
+        print(f"BFS: {qtd_bfs} DFS: {qtd_dfs}")
+    
+    print(f"Quantidade de casas visitadas BFS: {qtd_bfs}")
+    print(f"Quantidade de casas visitadas DFS: {qtd_dfs}")
+    
+    
 def main():
+    
+    # return comparar_buscas(gerar_labirinto())
+
     rodando = True
     labirinto = esconder_gato(gerar_labirinto())
     
-    desenhar_labirinto(labirinto)
-    time.sleep(1)
-
     print("Começando a busca no labirinto...")
     
-    global qtd_visitados
-    
-    qtd_visitados = 0
-    labirinto_bfs = [row[:] for row in labirinto]
-    encontrou = bfs(labirinto_bfs, 0, 0)
-    print(f"Quantidade de casas visitadas BFS: {qtd_visitados}")
-    
-    qtd_visitados = 0
-    labirinto_dfs = [row[:] for row in labirinto]
-    encontrou = dfs(labirinto_dfs, 0, 0)
-    print(f"Quantidade de casas visitadas DFS: {qtd_visitados}")
+    encontrou = dfs(labirinto, 0, 0)
     
     if encontrou:
         print("Gato encontrado!")
