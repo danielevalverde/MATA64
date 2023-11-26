@@ -1,11 +1,14 @@
 import random
 import pygame
 import time
-    
+from collections import deque
+
 largura = 600
 altura = 600
 
 manter_conhecimento = True
+
+qtd_visitados = 0
 
 cor_cinza = (128, 128, 128)
 cor_branca = (255, 255, 255)
@@ -74,7 +77,7 @@ def desenhar_labirinto(labirinto):
                     cor = cor_cinza
                 pygame.draw.rect(janela, cor, (coluna * tamanho_celula, linha * tamanho_celula, tamanho_celula, tamanho_celula))
     pygame.display.update()
-    pygame.time.delay(100)  # Adiciona um pequeno atraso para visualizar a busca
+    pygame.time.delay(10)  # Adiciona um pequeno atraso para visualizar a busca
 
 
 def dfs(labirinto, linha, coluna):
@@ -89,7 +92,9 @@ def dfs(labirinto, linha, coluna):
 
     encontrado = labirinto[linha][coluna] == 2
 
-    labirinto[linha][coluna] = 3;    
+    labirinto[linha][coluna] = 3;
+    global qtd_visitados
+    qtd_visitados += 1 
     desenhar_labirinto(labirinto)
 
     labirinto[linha][coluna] = -(numero_cor_casa_percorrida)
@@ -103,6 +108,35 @@ def dfs(labirinto, linha, coluna):
     print
     return resultado
 
+def bfs(labirinto, linha, coluna):
+    queue = deque([(linha, coluna)])
+    visited = set()
+
+    while queue:
+        linha, coluna = queue.popleft()
+
+        if (linha, coluna) not in visited and labirinto[linha][coluna] > 0:
+            visited.add((linha, coluna))
+            
+            encontrado = labirinto[linha][coluna] == 2
+            
+            labirinto[linha][coluna] = 3
+            global qtd_visitados
+            qtd_visitados += 1
+            
+            desenhar_labirinto(labirinto)
+            
+            if encontrado:
+                return True  # Gato encontrado
+            else:
+                labirinto[linha][coluna] = -(numero_cor_casa_percorrida)
+
+            # Adiciona vizinhos à fila
+            neighbors = [(linha, coluna - 1), (linha - 1, coluna), (linha, coluna + 1), (linha + 1, coluna)]
+            queue.extend(neighbor for neighbor in neighbors if 0 <= neighbor[0] < len(labirinto)
+                          and 0 <= neighbor[1] < len(labirinto[0]))
+
+    return False  # Gato não encontrado
 
 def main():
     rodando = True
@@ -112,7 +146,19 @@ def main():
     time.sleep(1)
 
     print("Começando a busca no labirinto...")
-    encontrou = dfs(labirinto, 0, 0)
+    
+    global qtd_visitados
+    
+    qtd_visitados = 0
+    labirinto_bfs = [row[:] for row in labirinto]
+    encontrou = bfs(labirinto_bfs, 0, 0)
+    print(f"Quantidade de casas visitadas BFS: {qtd_visitados}")
+    
+    qtd_visitados = 0
+    labirinto_dfs = [row[:] for row in labirinto]
+    encontrou = dfs(labirinto_dfs, 0, 0)
+    print(f"Quantidade de casas visitadas DFS: {qtd_visitados}")
+    
     if encontrou:
         print("Gato encontrado!")
     else:
