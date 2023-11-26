@@ -40,7 +40,7 @@ cor_verde = (0, 255, 0)
 cor_vermelha = (255, 0, 0)
 cor_azul = (0, 0, 255)
 
-numero = 10 # numero da cor a ser preenchida quand percorrer o labirinto
+numero_cor_casa_percorrida = 10 # numero_cor_casa_percorrida da cor a ser preenchida quand percorrer o labirinto
 
 def desenhar_labirinto(labirinto):
     janela.fill(cor_branca)
@@ -60,7 +60,7 @@ def desenhar_labirinto(labirinto):
 
 def dfs(labirinto, linha, coluna):
 
-    global numero
+    global numero_cor_casa_percorrida
 
     if not manter_conhecimento:
         labirinto = [row[:] for row in labirinto]
@@ -70,7 +70,7 @@ def dfs(labirinto, linha, coluna):
 
     encontrado = labirinto[linha][coluna] == 2
     
-    labirinto[linha][coluna] = -(numero)
+    labirinto[linha][coluna] = -(numero_cor_casa_percorrida)
     desenhar_labirinto(labirinto)
 
     if encontrado:
@@ -83,7 +83,7 @@ def dfs(labirinto, linha, coluna):
 
     resultado = dfs(labirinto, linha, coluna - 1) or dfs(labirinto, linha - 1, coluna) or dfs(labirinto, linha, coluna + 1) or dfs(labirinto, linha + 1, coluna) 
 
-    numero = int ((numero + 13) % 255)
+    numero_cor_casa_percorrida = int ((numero_cor_casa_percorrida + 13) % 255)
     print
     return resultado
 
