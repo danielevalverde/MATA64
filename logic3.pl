@@ -11,11 +11,12 @@ start :-
     write('e a Srta. Blue tinha uma reunião marcada com o Sr.Richard naquela noite pra discutir a venda de algumas obras.'), nl,
     write('O Sr. Mustard, um colecionador rival, havia tentando entrar em contato com Sr Richard naquela tarde.'), nl,
     write('e a Sra. Scarlett também tinha interesse especial pela coleção do Sr. Richard.'), nl,
+    write('e a Sra. Luz encontrou o corpo sem vida do sr Richard.'), nl,
     write('Havia uma atmosfera de tensão na biblioteca, mas apenas um indivíduo parecia estar perdido em pensamentos.'), nl,
     write('Lista de Perguntas que o jogador pode fazer:'), nl,
     write('Digite "estava_na_casa(X)." para descobrir quem estava na casa.'), nl,
     write('Digite "relacao_com_assassinado(X)." para descobrir a relação do suspeito com o assassinado.'), nl,
-    write('Digite "relacao_entre_os_suspeitos(X, Y,R)." para descobrir a relação entre os suspeitos.'), nl,
+    write('Digite "relacao_entre_os_suspeitos(X, Y, R)." para descobrir a relação entre os suspeitos.'), nl,
     write('Digite "imprimir_fatos_conhecidos_policia." para descobrir os fatos conhecidos pela polícia.'), nl,
     write('Digite "culpado(X)." para descobrir quem é o culpado pelo assassinato.'), nl.
 
@@ -32,10 +33,11 @@ suspeito(srt_blue).
 suspeito(srt_pretz).
 suspeito(sra_luz).
 
-% Relações de quem esteva na casa
+% Relações de quem estava na casa
 estava_na_casa(sra_peacock).
 estava_na_casa(sra_scarlett).
 estava_na_casa(sra_white).
+estava_na_casa(dr_plum).
 
 
 % interesse na obra
@@ -46,7 +48,7 @@ interesse_na_obra(srt_mustard).
 interesse_na_obra(sra_luz).
 
 % Chave
-possui_chave(sr_Richard).
+possui_chave(sr_richard).
 possui_chave(sr_brown).
 possui_chave(sra_scarlett).
 possui_chave(sra_luz).
