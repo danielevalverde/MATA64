@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  detetive:
+    image: swipl:latest
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: swipl -s logic3.pl
