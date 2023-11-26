@@ -1,17 +1,23 @@
 import pygame
 import time
 
+
 labirinto = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 1, 0, 1, 0, 0, 1],
-    [1, 1, 1, 0, 1, 0, 1, 1, 0, 1],
-    [1, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-    [1, 1, 1, 0, 1, 1, 1, 1, 0, 1],
-    [1, 0, 2, 0, 0, 0, 1, 0, 0, 1],
-    [1, 0, 0, 0, 1, 0, 1, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1],
+    [1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1],
+    [1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1],
+    [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0],
+    [1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
+    [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1],
+    [1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1],
+    [1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1],
+    [1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1],
+    [1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1]
 ]
     
 largura = 600
@@ -27,11 +33,14 @@ pygame.init()
 janela = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption('Labirinto')
 
+cor_cinza = (128, 128, 128)
 cor_branca = (255, 255, 255)
 cor_preto = (0, 0, 0)
 cor_verde = (0, 255, 0)
 cor_vermelha = (255, 0, 0)
 cor_azul = (0, 0, 255)
+
+numero = 10 # numero da cor a ser preenchida quand percorrer o labirinto
 
 def desenhar_labirinto(labirinto):
     janela.fill(cor_branca)
@@ -42,14 +51,16 @@ def desenhar_labirinto(labirinto):
                     cor = cor_preto 
                 elif labirinto[linha][coluna] == 2:
                     cor = cor_azul
-                elif labirinto[linha][coluna] == -1:
-                    cor = cor_vermelha
+                elif labirinto[linha][coluna] <= -1:
+                    cor = (255, -(labirinto[linha][coluna]), 255 + (labirinto[linha][coluna]))
                 else:
-                    cor = cor_branca
+                    cor = cor_cinza
                 pygame.draw.rect(janela, cor, (coluna * tamanho_celula, linha * tamanho_celula, tamanho_celula, tamanho_celula))
     pygame.display.update()
 
 def dfs(labirinto, linha, coluna):
+
+    global numero
 
     if not manter_conhecimento:
         labirinto = [row[:] for row in labirinto]
@@ -58,8 +69,8 @@ def dfs(labirinto, linha, coluna):
         return False
 
     encontrado = labirinto[linha][coluna] == 2
-
-    labirinto[linha][coluna] = -1
+    
+    labirinto[linha][coluna] = -(numero)
     desenhar_labirinto(labirinto)
 
     if encontrado:
@@ -68,11 +79,14 @@ def dfs(labirinto, linha, coluna):
     
     pygame.draw.rect(janela, cor_verde, (coluna * tamanho_celula, linha * tamanho_celula, tamanho_celula, tamanho_celula))
     pygame.display.update()
-    pygame.time.delay(400)  # Adiciona um pequeno atraso para visualizar a busca
+    pygame.time.delay(100)  # Adiciona um pequeno atraso para visualizar a busca
 
-    print(labirinto)
+    resultado = dfs(labirinto, linha, coluna - 1) or dfs(labirinto, linha - 1, coluna) or dfs(labirinto, linha, coluna + 1) or dfs(labirinto, linha + 1, coluna) 
 
-    return dfs(labirinto, linha + 1, coluna) or dfs(labirinto, linha - 1, coluna) or dfs(labirinto, linha, coluna + 1) or dfs(labirinto, linha, coluna - 1)
+    numero = int ((numero + 13) % 255)
+    print
+    return resultado
+
 
 def main():
     rodando = True
@@ -81,8 +95,6 @@ def main():
 
     print("Começando a busca no labirinto...")
     dfs(labirinto, 0, 0)
-
-    print(labirinto)
 
     while rodando:
         for evento in pygame.event.get():
