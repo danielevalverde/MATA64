@@ -1,9 +1,29 @@
+import random
 import pygame
 import time
+    
+largura = 600
+altura = 600
+
+manter_conhecimento = False
+
+cor_cinza = (128, 128, 128)
+cor_branca = (255, 255, 255)
+cor_preto = (0, 0, 0)
+cor_verde = (0, 255, 0)
+cor_vermelha = (255, 0, 0)
+cor_azul = (0, 0, 255)
+numero_cor_casa_percorrida = 10 # numero_cor_casa_percorrida da cor a ser preenchida quand percorrer o labirinto
+
+pygame.init()
+
+janela = pygame.display.set_mode((largura, altura))
+pygame.display.set_caption('Labirinto')
 
 
-labirinto = [
-    [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+def gerar_labirinto():
+    return [
+    [3, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1],
     [1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1],
     [1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1],
@@ -19,44 +39,41 @@ labirinto = [
     [1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1],
     [1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1]
 ]
-    
-largura = 600
-altura = 600
-tamanho_celula = largura // len(labirinto[0])
-linhas = altura // tamanho_celula
-colunas = largura // tamanho_celula
 
-manter_conhecimento = True
+def esconder_gato(labirinto):
+    coordenadas_caminho = []
+    for i in range(len(labirinto)):
+        for j in range(len(labirinto[0])):
+            if labirinto[i][j] == 0:
+                coordenadas_caminho.append((i, j))
 
-pygame.init()
+    coordenada_gato = random.choice(coordenadas_caminho)
+    labirinto[coordenada_gato[0]][coordenada_gato[1]] = 2
+    return labirinto
 
-janela = pygame.display.set_mode((largura, altura))
-pygame.display.set_caption('Labirinto')
-
-cor_cinza = (128, 128, 128)
-cor_branca = (255, 255, 255)
-cor_preto = (0, 0, 0)
-cor_verde = (0, 255, 0)
-cor_vermelha = (255, 0, 0)
-cor_azul = (0, 0, 255)
-
-numero_cor_casa_percorrida = 10 # numero_cor_casa_percorrida da cor a ser preenchida quand percorrer o labirinto
 
 def desenhar_labirinto(labirinto):
     janela.fill(cor_branca)
-    for linha in range(linhas):
-        for coluna in range(colunas):
+
+    tamanho_celula = largura // len(labirinto[0])
+
+    for linha in range(len(labirinto)):
+        for coluna in range(len(labirinto[0])):
             if linha < len(labirinto) and coluna < len(labirinto[0]):
                 if labirinto[linha][coluna] == 1:
                     cor = cor_preto 
                 elif labirinto[linha][coluna] == 2:
                     cor = cor_azul
+                elif labirinto[linha][coluna] == 3:
+                    cor = cor_verde
                 elif labirinto[linha][coluna] <= -1:
                     cor = (255, -(labirinto[linha][coluna]), 255 + (labirinto[linha][coluna]))
                 else:
                     cor = cor_cinza
                 pygame.draw.rect(janela, cor, (coluna * tamanho_celula, linha * tamanho_celula, tamanho_celula, tamanho_celula))
     pygame.display.update()
+    pygame.time.delay(100)  # Adiciona um pequeno atraso para visualizar a busca
+
 
 def dfs(labirinto, linha, coluna):
 
@@ -69,17 +86,15 @@ def dfs(labirinto, linha, coluna):
         return False
 
     encontrado = labirinto[linha][coluna] == 2
-    
-    labirinto[linha][coluna] = -(numero_cor_casa_percorrida)
+
+    labirinto[linha][coluna] = 3;    
     desenhar_labirinto(labirinto)
+
+    labirinto[linha][coluna] = -(numero_cor_casa_percorrida)
 
     if encontrado:
         return True
     
-    pygame.draw.rect(janela, cor_verde, (coluna * tamanho_celula, linha * tamanho_celula, tamanho_celula, tamanho_celula))
-    pygame.display.update()
-    pygame.time.delay(100)  # Adiciona um pequeno atraso para visualizar a busca
-
     resultado = dfs(labirinto, linha, coluna - 1) or dfs(labirinto, linha - 1, coluna) or dfs(labirinto, linha, coluna + 1) or dfs(labirinto, linha + 1, coluna) 
 
     numero_cor_casa_percorrida = int ((numero_cor_casa_percorrida + 13) % 255)
@@ -89,6 +104,8 @@ def dfs(labirinto, linha, coluna):
 
 def main():
     rodando = True
+    labirinto = esconder_gato(gerar_labirinto())
+    
     desenhar_labirinto(labirinto)
     time.sleep(1)
 
