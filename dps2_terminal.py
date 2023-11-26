@@ -74,7 +74,6 @@ def dfs(labirinto, linha, coluna):
     desenhar_labirinto(labirinto)
 
     if encontrado:
-        print('Gato encontrado!')
         return True
     
     pygame.draw.rect(janela, cor_verde, (coluna * tamanho_celula, linha * tamanho_celula, tamanho_celula, tamanho_celula))
@@ -94,7 +93,11 @@ def main():
     time.sleep(1)
 
     print("Começando a busca no labirinto...")
-    dfs(labirinto, 0, 0)
+    encontrou = dfs(labirinto, 0, 0)
+    if encontrou:
+        print("Gato encontrado!")
+    else:
+        print("Gato não encontrado!")
 
     while rodando:
         for evento in pygame.event.get():
