@@ -25,23 +25,37 @@ pygame.display.set_caption('Labirinto')
 
 
 def gerar_labirinto():
+    # return [
+    #     [3,1,1,0,1,1,0,1,1,1,0,1],
+    #     [0,0,1,0,1,1,0,1,1,1,0,1],
+    #     [0,0,1,0,1,1,0,0,1,0,0,1],
+    #     [1,0,1,0,0,1,0,0,1,0,0,1],
+    #     [1,0,1,1,1,1,1,1,1,1,1,1],
+    #     [1,1,1,0,1,0,0,1,0,1,0,0],
+    #     [1,1,1,0,1,1,0,1,0,1,1,0],
+    #     [0,1,0,0,0,1,0,1,0,1,0,0],
+    #     [0,0,0,0,0,1,0,1,0,1,1,1],
+    #     [1,1,1,1,0,0,0,1,0,0,0,0],
+    #     [0,1,0,0,0,0,0,1,0,1,1,1],
+    #     [1,1,1,1,1,1,1,1,1,1,1,1],
+    # ]
     return [
-    [3, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1],
-    [1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1],
-    [1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1],
-    [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0],
-    [1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
-    [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1],
-    [1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1],
-    [1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1],
-    [1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1],
-    [1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1]
-]
+        [3, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1],
+        [1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1],
+        [1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1],
+        [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0],
+        [1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
+        [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1],
+        [1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1],
+        [1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+        [1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1],
+        [1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1],
+        [1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1]
+    ]
 
 def esconder_gato(labirinto):
     coordenadas_caminho = []
@@ -152,6 +166,8 @@ def comparar_buscas(labirinto):
     
     qtd_bfs = 0
     qtd_dfs = 0
+    qtd_bfs_ganhou = 0
+    qtd_dfs_ganhou = 0
     
     for i in range(len(coordenadas_caminho)):
         labirinto[coordenadas_caminho[i][0]][coordenadas_caminho[i][1]] = 2
@@ -159,15 +175,27 @@ def comparar_buscas(labirinto):
         qtd_visitados = 0
         labirinto_bfs = [row[:] for row in labirinto]
         encontrou = bfs(labirinto_bfs, 0, 0)
+        qtd_bfs_atual = qtd_visitados
         qtd_bfs += qtd_visitados
         
         qtd_visitados = 0
         labirinto_dfs = [row[:] for row in labirinto]
         encontrou = dfs(labirinto_dfs, 0, 0)
-        qtd_dfs += qtd_visitados        
+        qtd_dfs_atual = qtd_visitados
+        qtd_dfs += qtd_visitados
+        
         labirinto[coordenadas_caminho[i][0]][coordenadas_caminho[i][1]] = 1
         
-        print(f"BFS: {qtd_bfs} DFS: {qtd_dfs}")
+        if qtd_bfs_atual < qtd_dfs_atual:
+            qtd_bfs_ganhou += 1
+        elif qtd_bfs_atual > qtd_dfs_atual:
+            qtd_dfs_ganhou += 1
+        else:
+            qtd_bfs_ganhou += 1
+            qtd_dfs_ganhou += 1
+            
+        print(f"BFS: {qtd_bfs_ganhou} DFS: {qtd_dfs_ganhou}")
+        
     
     print(f"Quantidade de casas visitadas BFS: {qtd_bfs}")
     print(f"Quantidade de casas visitadas DFS: {qtd_dfs}")
