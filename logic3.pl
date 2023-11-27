@@ -52,7 +52,7 @@ possui_chave(sr_richard).
 possui_chave(sr_boris).
 possui_chave(sra_scarlett).
 possui_chave(sra_luz).
-ê
+
 % Relações com o assassinado
 relacao_com_o_assassinado(sra_scarlett,funcionaria).
 relacao_com_o_assassinado(sra_white,funcionaria).
