@@ -33,6 +33,27 @@ suspeito(sra_belmont).
 suspeito(srt_pretz).
 suspeito(sra_luz).
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 % Fatos sobre quem estava na casa
 estava_na_casa(sra_pires).
 estava_na_casa(sra_scarlett).
