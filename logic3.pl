@@ -7,15 +7,15 @@ start :-
     write('O Sr Pretz, o mordomo, viu alguém saindo da biblioteca na tarde do assassinato.'), nl,
     write('Sr. Greg estava presente na biblioteca durante a noite do assassinato e notou algo suspeito,'), nl,
     write('Sra. Pires foi ouvida discutindo com o Sr. Richard na noite do assassinato,'), nl,
-    write('Sr. Boris, jardineiro disse que estava na cidade comprando fertilizante a maior parte do dia,'), nl,
+    write('Sr. Boris, o jardineiro da mansão, disse que estava na cidade comprando fertilizante a maior parte do dia,'), nl,
     write('e a Sra. Belmont tinha uma reunião marcada com o Sr.Richard naquela noite pra discutir a venda de algumas obras.'), nl,
     write('O Sr. Mustang, um colecionador rival, havia tentando entrar em contato com Sr Richard naquela tarde.'), nl,
     write('e a Sra. Scarlett também tinha interesse especial pela coleção do Sr. Richard.'), nl,
-    write('e a Sra. Luz encontrou o corpo sem vida do sr Richard.'), nl,
+    write('e a Sra. Luz estava viajando e ao chegar na sua mansão, encontrou o corpo sem vida do sr Richard.'), nl,
     write('Havia uma atmosfera de tensão na biblioteca, mas apenas um indivíduo parecia estar perdido em pensamentos.'), nl,
     write('Lista de Perguntas que o jogador pode fazer:'), nl,
     write('Digite "estava_na_casa(X)." para descobrir quem estava na casa.'), nl,
-    write('Digite "relacao_com_assassinado(X)." para descobrir a relação do suspeito com o assassinado.'), nl,
+    write('Digite "relacao_com_o_assassinado(X,R)." para descobrir a relação do suspeito com o assassinado.'), nl,
     write('Digite "relacao_entre_os_suspeitos(X, Y, R)." para descobrir a relação entre os suspeitos.'), nl,
     write('Digite "imprimir_fatos_conhecidos_policia." para descobrir os fatos conhecidos pela polícia.'), nl,
     write('Digite "culpado(X)." para descobrir quem é o culpado pelo assassinato.'), nl.
@@ -37,15 +37,14 @@ suspeito(sra_luz).
 estava_na_casa(sra_pires).
 estava_na_casa(sra_scarlett).
 estava_na_casa(sra_white).
+estava_na_casa(sra_luz).
 estava_na_casa(dr_felix).
-
 
 % Fatos sobre quem tinha interesse na obra
 interesse_na_obra(sra_scarlett).
 interesse_na_obra(sr_greg).
 interesse_na_obra(sra_belmont).
 interesse_na_obra(sr_mustard).
-interesse_na_obra(sra_luz).
 
 % Fatos sobre quem possuia a Chave
 possui_chave(sr_richard).
