@@ -1,10 +1,13 @@
+import sys
 import random
 import pygame
-import time
 from collections import deque
 
-largura = 600
-altura = 600
+sys.setrecursionlimit(50000)
+
+tamanho_labirinto = 25
+tamanho_celula = 900 // (tamanho_labirinto * 2)
+largura = altura = tamanho_celula * (tamanho_labirinto * 2) + tamanho_celula
 
 qtd_visitados = 0
 
@@ -18,12 +21,13 @@ cor_percorrido = (255, 10, 245)
 cor_a_ser_percorrido = (255, 195, 60)
 
 pygame.init()
-
-janela = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption('Labirinto')
+janela = pygame.display.set_mode((largura, altura))
 
 
 def gerar_labirinto():
+    return generate_maze(tamanho_labirinto)
+
     # return [
     #     [3,1,1,0,1,1,0,1,1,1,0,1],
     #     [0,0,1,0,1,1,0,1,1,1,0,1],
@@ -57,6 +61,7 @@ def gerar_labirinto():
     #     [1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1]
     # ]
     
+<<<<<<<< HEAD:dps.py
     return [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1], 
         [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1], 
@@ -87,6 +92,36 @@ def gerar_labirinto():
     
     # return generate_maze(12)
 
+========
+    # return [
+    #     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1], 
+    #     [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1], 
+    #     [1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1], 
+    #     [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1], 
+    #     [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1], 
+    #     [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1], 
+    #     [1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1], 
+    #     [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1], 
+    #     [1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1], 
+    #     [1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1], 
+    #     [1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1], 
+    #     [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1], 
+    #     [1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1], 
+    #     [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1], 
+    #     [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1], 
+    #     [1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1], 
+    #     [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1], 
+    #     [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1], 
+    #     [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1], 
+    #     [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1], 
+    #     [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1], 
+    #     [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1], 
+    #     [1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1], 
+    #     [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1], 
+    #     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
+    # ]
+    
+>>>>>>>> 8c0a6da04164a493dfbd8f028d1f27643842f19f:dfs.py
 
 def generate_maze(size):
     maze = [[0] * (2*size + 1) for _ in range(2*size + 1)]
@@ -122,26 +157,16 @@ def generate_maze(size):
             stack.append(next_cell)
         else:
             stack.pop()
-    # print
-    for i in range(len(maze)):
-        for j in range(len(maze[0])):
-            if maze[i][j] == 1:
-                print("1", end=" ")
-            else:
-                print("0", end=" ")
-        print()
         
     return maze
 
 def esconder_gato(labirinto):
     coordenadas_caminho = []
-    for i in range(len(labirinto)):
-        for j in range(len(labirinto[0])):
+    for i in range(1, len(labirinto) - 1):
+        for j in range(1, len(labirinto[0]) - 1):
             if labirinto[i][j] == 1:
                 coordenadas_caminho.append((i, j))
 
-    del coordenadas_caminho[0]
-    
     coordenada_gato = random.choice(coordenadas_caminho)
     labirinto[coordenada_gato[0]][coordenada_gato[1]] = 2
     return labirinto
@@ -149,8 +174,6 @@ def esconder_gato(labirinto):
 
 def desenhar_labirinto(labirinto):
     janela.fill(cor_branca)
-
-    tamanho_celula = largura // len(labirinto[0])
 
     for linha in range(len(labirinto)):
         for coluna in range(len(labirinto[0])):
@@ -258,7 +281,7 @@ def comparar_buscas(labirinto):
 
     del coordenadas_caminho[0]
     
-    coordenadas_caminho.reverse()
+    random.shuffle(coordenadas_caminho)
     global qtd_visitados
     
     qtd_bfs = 0
@@ -274,13 +297,19 @@ def comparar_buscas(labirinto):
         
         qtd_visitados = 0
         labirinto_bfs = [row[:] for row in labirinto]
+<<<<<<<< HEAD:dps.py
         # encontrou = bfs(labirinto_bfs, 0, 0)
+========
+        encontrou = bfs(labirinto_bfs, 0, 0)
+        desenhar_labirinto(labirinto_bfs)
+>>>>>>>> 8c0a6da04164a493dfbd8f028d1f27643842f19f:dfs.py
         qtd_bfs_atual = qtd_visitados
         qtd_bfs += qtd_visitados
         
         qtd_visitados = 0
         labirinto_dfs = [row[:] for row in labirinto]
         encontrou = dfs(labirinto_dfs, 0, 0)
+        desenhar_labirinto(labirinto_bfs)
         qtd_dfs_atual = qtd_visitados
         qtd_dfs += qtd_visitados
         
