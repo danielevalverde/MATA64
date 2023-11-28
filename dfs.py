@@ -1,10 +1,13 @@
+import sys
 import random
 import pygame
-import time
 from collections import deque
 
-largura = 600
-altura = 600
+sys.setrecursionlimit(50000)
+
+tamanho_labirinto = 500
+largura = 1000 // tamanho_labirinto * tamanho_labirinto
+altura = 1000 // tamanho_labirinto * tamanho_labirinto
 
 qtd_visitados = 0
 
@@ -18,9 +21,8 @@ cor_percorrido = (255, 10, 245)
 cor_a_ser_percorrido = (255, 195, 60)
 
 pygame.init()
-
-janela = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption('Labirinto')
+janela = pygame.display.set_mode((largura, altura))
 
 
 def gerar_labirinto():
@@ -58,7 +60,7 @@ def gerar_labirinto():
     # ]
     
     # return [
-    #     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
+    #     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1], 
     #     [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1], 
     #     [1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1], 
     #     [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1], 
@@ -85,7 +87,7 @@ def gerar_labirinto():
     #     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
     # ]
     
-    return generate_maze(12)
+    return generate_maze(500)
 
 
 def generate_maze(size):
@@ -122,14 +124,6 @@ def generate_maze(size):
             stack.append(next_cell)
         else:
             stack.pop()
-    # print
-    for i in range(len(maze)):
-        for j in range(len(maze[0])):
-            if maze[i][j] == 1:
-                print("1", end=" ")
-            else:
-                print("0", end=" ")
-        print()
         
     return maze
 
@@ -169,7 +163,7 @@ def desenhar_labirinto(labirinto):
                     cor = cor_cinza
                 pygame.draw.rect(janela, cor, (coluna * tamanho_celula, linha * tamanho_celula, tamanho_celula, tamanho_celula))
     pygame.display.update()
-    pygame.time.delay(100)  # Adiciona um pequeno atraso para visualizar a busca
+    # pygame.time.delay(100)  # Adiciona um pequeno atraso para visualizar a busca
 
 
 def dfs(labirinto, linha, coluna):
@@ -199,7 +193,7 @@ def dfs(labirinto, linha, coluna):
     
     global qtd_visitados
     qtd_visitados += 1 
-    desenhar_labirinto(labirinto)
+    # desenhar_labirinto(labirinto)
 
     labirinto[linha][coluna] = -1
 
@@ -234,7 +228,7 @@ def bfs(labirinto, linha, coluna):
             if coluna+1 < len(labirinto[0]) and labirinto[linha][coluna+1] > 0 and labirinto[linha][coluna+1] != 2:
                 labirinto[linha][coluna+1] = 4
             
-            desenhar_labirinto(labirinto)
+            # desenhar_labirinto(labirinto)
             
             if encontrado:
                 return True  # Gato encontrado
@@ -258,7 +252,7 @@ def comparar_buscas(labirinto):
 
     del coordenadas_caminho[0]
     
-    coordenadas_caminho.reverse()
+    random.shuffle(coordenadas_caminho)
     global qtd_visitados
     
     qtd_bfs = 0
@@ -272,12 +266,14 @@ def comparar_buscas(labirinto):
         qtd_visitados = 0
         labirinto_bfs = [row[:] for row in labirinto]
         encontrou = bfs(labirinto_bfs, 0, 0)
+        desenhar_labirinto(labirinto_bfs)
         qtd_bfs_atual = qtd_visitados
         qtd_bfs += qtd_visitados
         
         qtd_visitados = 0
         labirinto_dfs = [row[:] for row in labirinto]
         encontrou = dfs(labirinto_dfs, 0, 0)
+        desenhar_labirinto(labirinto_bfs)
         qtd_dfs_atual = qtd_visitados
         qtd_dfs += qtd_visitados
         
@@ -300,7 +296,7 @@ def comparar_buscas(labirinto):
     
 def main():
     
-    # return comparar_buscas(gerar_labirinto())
+    return comparar_buscas(gerar_labirinto())
 
     rodando = True
     labirinto = esconder_gato(gerar_labirinto())
