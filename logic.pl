@@ -12,11 +12,11 @@ start :-
     write('O Sr. Mustang, um colecionador rival, havia tentando entrar em contato com Sr Richard naquela tarde.'), nl,
     write('e a Sra. Scarlett também tinha interesse especial pela coleção do Sr. Richard.'), nl,
     write('e a Sra. Luz estava viajando e ao chegar na sua mansão, encontrou o corpo sem vida do sr Richard.'), nl,
-    write('Havia uma atmosfera de tensão na biblioteca, mas apenas um indivíduo parecia estar perdido em pensamentos.'), nl,
+    write('Havia uma atmosfera de tensão na biblioteca, mas apenas um indivíduo parecia estar perdido em pensamentos.'), nl,nl,
     write('Lista de Perguntas que o jogador pode fazer:'), nl,
     write('Digite "estava_na_casa(X)." para descobrir quem estava na casa.'), nl,
     write('Digite "relacao_com_o_assassinado(X,R)." para descobrir a relação do suspeito com o assassinado.'), nl,
-    write('Digite "relacao_entre_os_suspeitos(X, Y, R)." para descobrir a relação entre os suspeitos.'), nl,
+    write('Digite "relacao_entre_suspeitos(X, Y, R)." para descobrir a relação entre os suspeitos.'), nl,
     write('Digite "imprimir_fatos_conhecidos_policia." para descobrir os fatos conhecidos pela polícia.'), nl,
     write('Digite "culpado(X)." para descobrir quem é o culpado pelo assassinato.'), nl.
 
@@ -32,6 +32,26 @@ suspeito(sr_boris).
 suspeito(sra_belmont).
 suspeito(srt_pretz).
 suspeito(sra_luz).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -156,5 +176,5 @@ interrogar_suspeito(sra_scarlett) :-
 culpado(Suspeito) :-
     suspeito(Suspeito),
     possui_chave(Suspeito),
-    esteve_na_casa(Suspeito),
+    estava_na_casa(Suspeito),
     interesse_na_obra(Suspeito).

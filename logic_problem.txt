@@ -1,0 +1,8 @@
+jogo de detetive
+Em um jogo de detetive, a inferência pode ser aplicada para ajudar o jogador a resolver um mistério complexo, utilizando pistas e evidências para chegar a uma conclusão.
+
+Imaginemos um cenário em que o jogador está investigando um assassinato em uma mansão. Existem vários suspeitos, cada um com sua  possíveis motivos para o crime. 
+Através da inferência, o jogador pode analisar as evidências disponíveis e aplicar lógica para conectar as informações coletadas, estabelecer relações entre os suspeitos, os eventos e as possíveis motivações. A aplicação da inferência lógica aqui seria semelhante a um raciocínio dedutivo, onde o jogador usa as pistas para eliminar possíveis suspeitos e identificar quem tem mais probabilidade de ter cometido o crime.
+O objetivo é chegar a uma conclusão lógica sobre quem é o verdadeiro culpado com base nas pistas e informações disponíveis no jogo.
+
+
